@@ -1,0 +1,67 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: support desk
+status: known
+reviewed: 2026-11-26
+signature: v1.eyJzdWIiOiIxNjA5NSIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk1NjkzMTc1LCJleHAiOjE3OTU3Nzk1NzV9.-aPC-HFZP546psdd3SlHtPbOQS8ky0Sx_3X7OiaaQzY
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const signature = 'v1.eyJzdWIiOiIxNjA5NSIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk1NjkzMTc1LCJleHAiOjE3OTU3Nzk1NzV9.-aPC-HFZP546psdd3SlHtPbOQS8ky0Sx_3X7OiaaQzY';
+</script>
+
+[#4471](/kb/incidents/4471) merged 412 reports about wrong dates and marked them known, with one fix queued.
+Read one by one, the reports hold **three problems**. One fix does not close all three.
+
+<Callout>
+Not one issue. Three tickets, three fixes. The queued parser fix covers the first problem only.
+</Callout>
+
+## The three problems
+
+| # | Problem | Reports |
+|---|---------|---------|
+| 1 | **parser**: the shared parser reads every date month first, so day-first tenants get day and month swapped. | 374 |
+| 2 | **hint**: tenants on the `booking-v3` form are told to type `MM/DD/YYYY`, and the form then reads it day first. | 33 |
+| 3 | **one-day move**: a booking shifts by exactly one day. This is a time zone or day-boundary bug, not a month flip. | 5 |
+
+374 + 33 + 5 = 412. The table below is computed from the export. The five one-day reports sit under
+`parser` there, because that table files them by tenant. See the footnote under it.
+
+<CauseTable ticket={4471} />
+
+## How to tell them apart
+
+1. **Locale.** Ask the platform whether the tenant's locale writes the day first. Do not type a list.
+2. **Form.** A day-first tenant whose report came in through `booking-v3`'s form is `hint`. Any other
+   day-first report is `parser`.
+3. **Shape.** A swap of day and month is problem 1 or 2. A move of exactly one day, or two people
+   in different zones seeing different days of one meeting, is problem 3.
+
+Intake's `intakeTag` does not decide the cause. It is a guess made from the reporter's browser.
+It is wrong often: 15 of the 33 `hint` reports were tagged `parser`.
+
+## Why it was merged
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject line alone. These reports
+share subjects such as "Wrong day on the invite" while their causes differ. Nobody read the bodies, so
+three bugs became one ticket. A new decision record should replace 0001 for date reports.
+
+## What to do
+
+- Keep the parser fix queued, and scope it to problem 1.
+- Give problem 2 its own fix: change the `booking-v3` hint, or make the form read what the hint says.
+- Open an investigation for problem 3 (time zones, DST, day boundary).
+- Tell the 33 and 5 reporters that #4471 does not cover their bug.
+
+## Lessons
+
+- Merge by cause, not by subject. Count the reports under each cause.
+- A "known" mark on a merged ticket says nothing about the causes inside it.
+
+<RenderStamp {signature} />
