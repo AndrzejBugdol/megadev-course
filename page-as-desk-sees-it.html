@@ -3,7 +3,7 @@
 <title>#4471 · two problems, not one · support kb</title>
 <style>body{margin:0;background:#fbfaf7;color:#1d1d1b;font:16px/1.6 system-ui,sans-serif}.kb{max-width:760px;margin:0 auto;padding:2rem 16px 4rem}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}th,td{border-bottom:1px solid #e3e0d8;padding:.35rem .5rem;text-align:left}code{font:.88em ui-monospace,Menlo,monospace}a{color:#2f6f5e}.meta,footer,.stamp{color:#6b6a66;font-size:.85rem}.callout{background:#eef5f2;padding:.6rem 1rem;border-radius:6px}.stamp b{color:#2f6f5e}@media(prefers-color-scheme:dark){body{background:#171716;color:#ecebe6}th,td{border-color:#34332f}.callout{background:#1d2c27}.meta,footer,.stamp{color:#9c9a93}a,.stamp b{color:#6fbfa6}}</style></head>
 <body><div class="kb"><header><a href="/kb">support desk · kb</a><h1>#4471 · two problems, not one</h1>
-<p class="meta">owner <b>support desk</b> · known · reviewed 2026-11-26</p></header><main>
+<p class="meta">owner <b>support desk</b> · closed · reviewed 2026-11-26</p></header><main>
 <p><a href="/kb/incidents/4471">#4471</a> merged 412 reports about wrong dates and marked them known, with one fix queued. Read one by one, the reports hold <strong>two problems</strong>. One fix does not close both.</p>
 <p class="callout">Not one issue. Two tickets, two fixes. The queued parser fix covers the first problem only.</p>
 <h2>The two problems</h2>
@@ -15,10 +15,10 @@
 <h2>How to tell them apart</h2>
 <ol><li><strong>Locale.</strong> Ask the platform whether the tenant's locale writes the day first.</li><li><strong>Form.</strong> A day-first tenant reporting through <code>booking-v3</code>'s form is <code>hint</code>. Any other day-first report is <code>parser</code>.</li><li><strong>Shape.</strong> A day and month swap is problem 1 or 2.</li></ol>
 <p>Intake's <code>intakeTag</code> is a guess from the reporter's browser: 15 of the 33 <code>hint</code> reports were tagged <code>parser</code>.</p>
-<h2>Why it was merged</h2>
+<h2>Outcome</h2><p>Engineering closed #4471 on 5 October.</p><ul><li><strong>parser</strong>: fixed, <code>fix(dates): parse dd/mm for eu locales</code>.</li><li><strong>hint</strong>: won't fix, the <code>booking-v3</code> form is retired.</li></ul><h2>Why it was merged</h2>
 <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on subject line alone. Nobody read the bodies, so two bugs became one ticket. A new decision record should replace 0001 for date reports.</p>
 <h2>What to do</h2>
-<ul><li>Keep the parser fix queued, scoped to problem 1.</li><li>Give problem 2 its own fix: change the <code>booking-v3</code> hint, or make the form read what the hint says.</li><li>Check the five one-day-move reports after the parser fix ships.</li><li>Tell the 33 <code>hint</code> reporters that #4471 does not cover their bug.</li></ul>
+<ul><li>Check the five one-day-move reports against the parser fix.</li><li>Tell the 33 <code>hint</code> reporters that #4471 does not cover their bug.</li></ul>
 <h2>Lessons</h2><ul><li>Merge by cause, not by subject. Count the reports under each cause.</li><li>A "known" mark on a merged ticket says nothing about the causes inside it.</li></ul>
 <p class="stamp">desk ref <b>DR-8CYE-JKP2</b></p></main>
 <footer>Pages are written by people. Tables and charts are built from data at render time.</footer></div></body></html>

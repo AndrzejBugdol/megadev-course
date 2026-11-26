@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · two problems, not one'
 owner: support desk
-status: known
+status: closed
 reviewed: 2026-11-26
 signature: v1.eyJzdWIiOiIxNjA5NSIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk1NjkzMTc1LCJleHAiOjE3OTU3Nzk1NzV9.-aPC-HFZP546psdd3SlHtPbOQS8ky0Sx_3X7OiaaQzY
 ---
@@ -44,6 +44,13 @@ counts them under `parser`, where its view files them by tenant, and footnotes t
 Intake's `intakeTag` does not decide the cause. It is a guess made from the reporter's browser.
 It is wrong often: 15 of the 33 `hint` reports were tagged `parser`.
 
+## Outcome
+
+Engineering closed #4471 on 5 October.
+
+- **parser**: fixed, `fix(dates): parse dd/mm for eu locales`.
+- **hint**: won't fix, the `booking-v3` form is retired.
+
 ## Why it was merged
 
 [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject line alone. These reports
@@ -52,9 +59,7 @@ two bugs became one ticket. A new decision record should replace 0001 for date r
 
 ## What to do
 
-- Keep the parser fix queued, and scope it to problem 1.
-- Give problem 2 its own fix: change the `booking-v3` hint, or make the form read what the hint says.
-- Check the five one-day-move reports after the parser fix ships. They may be a time zone effect.
+- Check the five one-day-move reports against the parser fix. They may be a time zone effect.
 - Tell the 33 `hint` reporters that #4471 does not cover their bug.
 
 ## Lessons
