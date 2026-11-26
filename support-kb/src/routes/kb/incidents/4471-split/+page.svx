@@ -19,7 +19,7 @@ signature: v1.eyJzdWIiOiIxNjA5NSIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaW
 Read one by one, the reports hold **two problems**. One fix does not close both.
 
 <Callout>
-Not one issue. Two tickets, two fixes. The queued parser fix covers the first problem only.
+Not one issue. Two tickets, two fixes. The parser fix covers the first problem only.
 </Callout>
 
 ## The two problems
